@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+<title>Experiencia Holográfica</title>
+
+<style>
+
+html,body{
+
+margin:0;
+padding:0;
+width:100%;
+height:100%;
+overflow:hidden;
+background:#000;
+font-family:Arial,sans-serif;
+
+}
+
+#inicio,
+#cargando{
+
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
+background:#000;
+color:white;
+text-align:center;
+
+padding:30px;
+box-sizing:border-box;
+
+}
+
+#cargando{
+
+display:none;
+
+}
+
+button{
+
+margin-top:25px;
+
+padding:16px 35px;
+
+border:none;
+
+border-radius:40px;
+
+font-size:18px;
+
+cursor:pointer;
+
+}
+
+#contenedor{
+
+display:none;
+
+width:100vw;
+
+height:100vh;
+
+background:black;
+
+}
+
+iframe{
+
+width:100%;
+
+height:100%;
+
+border:none;
+
+}
+
+#rotar{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+background:rgba(0,0,0,.95);
+
+color:white;
+
+font-size:22px;
+
+text-align:center;
+
+padding:30px;
+
+box-sizing:border-box;
+
+z-index:1000;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="inicio">
+
+<h2>Experiencia Holográfica</h2>
+
+<p>
+
+1. Escanee el código QR.<br><br>
+
+2. Suba el brillo al máximo.<br><br>
+
+3. Presione "Ver holograma".<br><br>
+
+4. Coloque el teléfono de forma horizontal en la ranura del objeto.
+
+</p>
+
+<button id="boton">
+
+Ver holograma
+
+</button>
+
+</div>
+
+<div id="cargando">
+
+<h2>Cargando experiencia...</h2>
+
+<p>
+
+Espere unos segundos.
+
+</p>
+
+</div>
+
+<div id="rotar">
+
+Coloque el dispositivo en posición horizontal para una mejor visualización.
+
+</div>
+
+<div id="contenedor">
+
+<iframe
+
+id="youtube"
+
+allow="autoplay; fullscreen"
+
+allowfullscreen
+
+loading="eager"
+
+referrerpolicy="strict-origin-when-cross-origin"
+
+src="https://www.youtube.com/embed/zAHABDYMxcg?autoplay=1&mute=1&loop=1&playlist=zAHABDYMxcg&controls=0&rel=0&modestbranding=1&playsinline=1">
+
+</iframe>
+
+</div>
+
+<script>
+
+const boton=document.getElementById("boton");
+
+const inicio=document.getElementById("inicio");
+
+const cargando=document.getElementById("cargando");
+
+const contenedor=document.getElementById("contenedor");
+
+const iframe=document.getElementById("youtube");
+
+const rotar=document.getElementById("rotar");
+
+function comprobarOrientacion(){
+
+if(window.innerHeight>window.innerWidth){
+
+rotar.style.display="flex";
+
+}else{
+
+rotar.style.display="none";
+
+}
+
+}
+
+window.addEventListener("resize",comprobarOrientacion);
+
+window.addEventListener("orientationchange",comprobarOrientacion);
+
+boton.addEventListener("click",function(){
+
+inicio.style.display="none";
+
+cargando.style.display="flex";
+
+comprobarOrientacion();
+
+setTimeout(function(){
+
+cargando.style.display="none";
+
+contenedor.style.display="block";
+
+if(document.documentElement.requestFullscreen){
+
+document.documentElement.requestFullscreen().catch(()=>{});
+
+}
+
+},1500);
+
+});
+
+iframe.onload=function(){
+
+setTimeout(function(){
+
+cargando.style.display="none";
+
+contenedor.style.display="block";
+
+},500);
+
+};
+
+setTimeout(function(){
+
+if(contenedor.style.display==="none"){
+
+cargando.style.display="none";
+
+contenedor.style.display="block";
+
+}
+
+},5000);
+
+</script>
+
+</body>
+
+</html>
